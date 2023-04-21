@@ -1,6 +1,7 @@
 package common;
 
 public interface MessageType {
+
   String message_succeed = "1";
   String message_failed = "2";
   String message_common = "3";
@@ -12,8 +13,7 @@ public interface MessageType {
   String message_file = "8";
 
   String message_createGroupChat = "9";
-   String message_groupChat = "10";
-
+  String message_groupChat = "10";
 
 
 }

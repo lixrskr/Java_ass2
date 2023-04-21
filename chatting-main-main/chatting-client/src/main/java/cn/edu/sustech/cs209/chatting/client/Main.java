@@ -72,7 +72,7 @@ public class Main extends Application {
       PasswordField passwordInput) {
     username = usernameInput.getText().trim();
     password = passwordInput.getText();
-    System.out.println("client:"+username + " clicked login.");
+    System.out.println("client:" + username + " clicked login.");
     // 判断用户名和密码是否为空
     if (!username.isEmpty() && !password.isEmpty()) {
       // 创建用户类并初始化
@@ -84,12 +84,11 @@ public class Main extends Application {
       if (clientlogic.checkUser(u)) {
         // 在此处添加登录成功后的逻辑
 
-
         try {
           // 登录成功，创建新窗口
           Stage friendliststage = new Stage();
           ClientFriendList clientFriendList = new ClientFriendList(username, friendliststage);
-          clientfriendlistManage.addclientconnectThread_receive(username,clientFriendList);
+          clientfriendlistManage.addclientconnectThread_receive(username, clientFriendList);
           //once passed login then there are several messages to send and receive
           //Thread start
           //send a request to ask the server to send back the online friend

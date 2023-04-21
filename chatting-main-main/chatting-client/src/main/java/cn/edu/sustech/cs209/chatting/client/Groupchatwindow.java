@@ -32,10 +32,10 @@ import javafx.util.Callback;
 
 public class Groupchatwindow {
 
-   String username;
+  String username;
   String joinedFriendNames;
-  TextArea messageArea=new TextArea();
-  TextField inputField=new TextField();
+  TextArea messageArea = new TextArea();
+  TextField inputField = new TextField();
 
   List<Friend> selectedFriends;
   List<String> joinedFriendNameslist;
@@ -72,7 +72,7 @@ public class Groupchatwindow {
     groupChatStage.show();
   }
 
-  public  void showGroupChatWindow(List<Friend> selectedFriends, Message message,String username) {
+  public void showGroupChatWindow(List<Friend> selectedFriends, Message message, String username) {
     String Username = username;
     Stage groupChatWindowStage = new Stage();
     ListView<Friend> userListView = new ListView<>(
@@ -100,16 +100,16 @@ public class Groupchatwindow {
       }
     });
     // 添加一个TextArea用于展示聊天内容
-     messageArea = new TextArea();
-     inputField = new TextField();
+    messageArea = new TextArea();
+    inputField = new TextField();
     messageArea.setPrefWidth(400);
     messageArea.setWrapText(true);
     messageArea.setEditable(false);
     inputField.setPromptText("输入你的消息...");
     Button sendButton = new Button("发送");
     sendButton.setOnAction(event -> {
-      sendmessage(selectedFriends,messageArea,Username);
-      System.out.println("showGroupChatWindow username:"+Username);
+      sendmessage(selectedFriends, messageArea, Username);
+      System.out.println("showGroupChatWindow username:" + Username);
     });
     HBox inputArea = new HBox(inputField, sendButton);
     inputArea.setSpacing(10);
@@ -144,22 +144,20 @@ public class Groupchatwindow {
     String info0 =
         createGroupChatMessage.getSender() + " send to " + createGroupChatMessage.getGetter()
             + " at " + createGroupChatMessage.getSendTime() + " : "
-            +  " with joinedFriendNames:"+createGroupChatMessage.getGroupMembers();
+            + " with joinedFriendNames:" + createGroupChatMessage.getGroupMembers();
     System.out.println("send create group message to server:" + info0);
   }
 
 
-    private void sendmessage(List<Friend> selectedFriends,TextArea messageArea,String username) {
-      this.username = username;
-      joinedFriendNames = selectedFriends.stream()
-          .map(Friend::getFriendname)
-          .collect(Collectors.joining(","));
+  private void sendmessage(List<Friend> selectedFriends, TextArea messageArea, String username) {
+    this.username = username;
+    joinedFriendNames = selectedFriends.stream()
+        .map(Friend::getFriendname)
+        .collect(Collectors.joining(","));
 
-
-
-      List<String> joinedFriendNameslist = selectedFriends.stream()
-          .map(Friend::getFriendname)
-          .collect(Collectors.toList());
+    List<String> joinedFriendNameslist = selectedFriends.stream()
+        .map(Friend::getFriendname)
+        .collect(Collectors.toList());
     Message message = new Message();
     message.setSender(username);
     message.setMesType(MessageType.message_groupChat);
@@ -168,23 +166,27 @@ public class Groupchatwindow {
     message.setSendTime(new java.util.Date().toString());
     message.setGroupMembers(joinedFriendNameslist);
     try {
-      System.out.println("getclientconnectThread_receive(username):"+username);
+      System.out.println("getclientconnectThread_receive(username):" + username);
       ObjectOutputStream oos = new ObjectOutputStream(
           clientThreadManage.getclientconnectThread_receive(username).socket.getOutputStream());
       oos.writeObject(message);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-      inputField.clear();
-      System.out.println(message.getSender()+" send: "+message.getContent()+" to group members: "+ message.getGetter());
+    inputField.clear();
+    System.out.println(
+        message.getSender() + " send: " + message.getContent() + " to group members: "
+            + message.getGetter());
   }
 
 
   public void showmessage(Message m) {
-    System.out.println("receive message: "+m.getContent()+" from sender: "+m.getSender());
+    System.out.println("receive message: " + m.getContent() + " from sender: " + m.getSender());
     m.setSendTime(new java.util.Date().toString());
 
-    String info1 = m.getSender() + " send " + " at " + m.getSendTime() + " : " + "\r\n" + m.getContent() + "\r\n";
+    String info1 =
+        m.getSender() + " send " + " at " + m.getSendTime() + " : " + "\r\n" + m.getContent()
+            + "\r\n";
 
     messageArea.appendText(info1);
   }

@@ -74,7 +74,7 @@ public class clientconnectThread_receive extends Thread {
             alert.showAndWait();
           });
         } else if (m.getMesType().equals(MessageType.message_file)) {
-          System.out.println(m.getGetter()+" receive message_file from: "+m.getSender());
+          System.out.println(m.getGetter() + " receive message_file from: " + m.getSender());
           String[] contentParts = m.getContent().split(":", 2);
           String fileName = contentParts[0];
           String fileContentBase64 = contentParts[1];
@@ -89,31 +89,33 @@ public class clientconnectThread_receive extends Thread {
             e.printStackTrace();
             // Handle error
           }
-          System.out.println("resources from: "+m.getSender()+" named: "+fileName+"successfully received");
+          System.out.println(
+              "resources from: " + m.getSender() + " named: " + fileName + "successfully received");
 
         } else if (m.getMesType().equals(MessageType.message_createGroupChat)) {
-          System.out.println("get message_createGroupChat from server: " + m.getSender()+" create a group ");
+          System.out.println(
+              "get message_createGroupChat from server: " + m.getSender() + " create a group ");
           List<Friend> selectedFriends = Arrays.stream(m.getContent().split(","))
               .map(Friend::new)
               .collect(Collectors.toList());
 
           Groupchatwindow groupchatwindow = new Groupchatwindow();
 
-          GroupchatwindowManage.addgroupchat(m.getGetter(),groupchatwindow);
-          System.out.println("GroupchatwindowManage addgroupchat: "+m.getGetter()+" to hm");
-
+          GroupchatwindowManage.addgroupchat(m.getGetter(), groupchatwindow);
+          System.out.println("GroupchatwindowManage addgroupchat: " + m.getGetter() + " to hm");
 
           Platform.runLater(() -> {
-            groupchatwindow.showGroupChatWindow(selectedFriends, m,m.getGetter());
+            groupchatwindow.showGroupChatWindow(selectedFriends, m, m.getGetter());
           });
-        } else if (m.getMesType().equals(MessageType.message_groupChat)){
-          System.out.println("get message_createGroupChat:"+m.getContent()+" from server:" + m.getSender());
+        } else if (m.getMesType().equals(MessageType.message_groupChat)) {
+          System.out.println(
+              "get message_createGroupChat:" + m.getContent() + " from server:" + m.getSender());
           Groupchatwindow groupchatwindow = GroupchatwindowManage.getgroupchat(m.getGetter());
-          System.out.println("groupchatwindow showmessage for: "+m.getGetter());
+          System.out.println("groupchatwindow showmessage for: " + m.getGetter());
           groupchatwindow.showmessage(m);
 
         }
-      }catch (IOException e) {
+      } catch (IOException e) {
         throw new RuntimeException(e);
       } catch (ClassNotFoundException e) {
         throw new RuntimeException(e);

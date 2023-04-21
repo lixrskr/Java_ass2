@@ -10,10 +10,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Main {
+
   public static void main(String[] args) throws IOException, ClassNotFoundException {
     ServerSocket ss = new ServerSocket(9999);
     System.out.println("server listening port: " + ss.getLocalPort());
-    Runtime.getRuntime().addShutdownHook(new Thread(() -> serverconnectThread.notifyAllClientsOfServerShutdown()));
+    Runtime.getRuntime()
+        .addShutdownHook(new Thread(() -> serverconnectThread.notifyAllClientsOfServerShutdown()));
     try {
       while (true) {
         Socket s = ss.accept();

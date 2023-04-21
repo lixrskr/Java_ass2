@@ -1,59 +1,63 @@
 package common;
 
 import java.util.List;
-public class Message implements java.io.Serializable{
-    String mesType;
-    String sender;
-    String getter;
-    String content;
-    String sendTime;
 
-    public String getSender() {
-        return sender;
-    }
+public class Message implements java.io.Serializable {
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
+  String mesType;
+  String sender;
+  String getter;
+  String content;
+  String sendTime;
 
-    public String getGetter() {
-        return getter;
-    }
+  public String getSender() {
+    return sender;
+  }
 
-    public void setGetter(String getter) {
-        this.getter = getter;
-    }
+  public void setSender(String sender) {
+    this.sender = sender;
+  }
 
-    public String getContent() {
-        return content;
-    }
+  public String getGetter() {
+    return getter;
+  }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+  public void setGetter(String getter) {
+    this.getter = getter;
+  }
 
-    public String getSendTime() {
-        return sendTime;
-    }
+  public String getContent() {
+    return content;
+  }
 
-    public void setSendTime(String sendTime) {
-        this.sendTime = sendTime;
-    }
+  public void setContent(String content) {
+    this.content = content;
+  }
 
-    public String getMesType() {
-        return mesType;
-    }
+  public String getSendTime() {
+    return sendTime;
+  }
 
-    public void setMesType(String mesType) {
-        this.mesType = mesType;
-    }
+  public void setSendTime(String sendTime) {
+    this.sendTime = sendTime;
+  }
 
-    private List<String> groupMembers;
-    public List<String> getGroupMembers() {
-        return groupMembers;
-    }
-    public void setGroupMembers(List<String> groupMembers) {
-        this.groupMembers = groupMembers;
-    }
+  public String getMesType() {
+    return mesType;
+  }
+
+  public void setMesType(String mesType) {
+    this.mesType = mesType;
+  }
+
+  private List<String> groupMembers;
+
+  public List<String> getGroupMembers() {
+    return groupMembers;
+  }
+
+  public void setGroupMembers(List<String> groupMembers) {
+    this.groupMembers = groupMembers;
+  }
 
 }

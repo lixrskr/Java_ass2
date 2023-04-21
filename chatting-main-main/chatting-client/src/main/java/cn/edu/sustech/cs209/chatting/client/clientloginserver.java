@@ -40,16 +40,11 @@ public class clientloginserver {
       }
 
 
-
-
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
     return b;
   }
-
-
 
 
 }

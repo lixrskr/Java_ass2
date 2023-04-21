@@ -174,14 +174,6 @@ public class ChatWindow extends Stage {
 }
 
 
-
-
-
-
-
-
-
-
 class EmojiPicker extends Stage {
 
   private ObjectProperty<String> resultProperty;

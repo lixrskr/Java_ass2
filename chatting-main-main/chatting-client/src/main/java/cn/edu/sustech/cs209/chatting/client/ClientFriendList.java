@@ -26,37 +26,47 @@ import javafx.util.Callback;
 
 
 class Friend {
+
   public Friend(String friendname) {
     this.friendname = friendname;
   }
+
   private int id;
   private boolean online;
   String friendname;
   private BooleanProperty selected;
+
   Friend(int id, boolean online) {
     this.id = id;
     this.online = online;
     this.friendname = String.valueOf(id);
     this.selected = new SimpleBooleanProperty(false);
   }
+
   int getId() {
     return id;
   }
+
   String getFriendname() {
     return friendname;
   }
+
   boolean isOnline() {
     return online;
   }
+
   void setOnline(boolean online) {
     this.online = online;
   }
+
   public BooleanProperty selectedProperty() {
     return selected;
   }
+
   public boolean isSelected() {
     return selected.get();
   }
+
   public void setSelected(boolean selected) {
     this.selected.set(selected);
   }

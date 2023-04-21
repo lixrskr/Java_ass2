@@ -13,11 +13,14 @@ import java.util.Iterator;
 import java.util.List;
 
 public class serverconnectThread extends Thread {
+
   Socket s;
+
   public serverconnectThread(Socket socket) {
     //connect server with client ,using this socket s
     this.s = socket;
   }
+
   public static void notifyother() {
     String Onlineid = serverThreadManage.getOnlineUserid();
     HashMap hm = serverThreadManage.hm;
@@ -38,6 +41,7 @@ public class serverconnectThread extends Thread {
     }
     System.out.println(message.getContent());
   }
+
   public static void notifyAllClientsOfServerShutdown() {
     String Onlineid = serverThreadManage.getOnlineUserid();
     HashMap hm = serverThreadManage.hm;
@@ -48,11 +52,12 @@ public class serverconnectThread extends Thread {
       message.setContent(Onlineid);
       message.setMesType(MessageType.message_servershutdown);
       try {
-        ObjectOutputStream oos = new ObjectOutputStream(serverThreadManage.getclientThread(res).s.getOutputStream());
+        ObjectOutputStream oos = new ObjectOutputStream(
+            serverThreadManage.getclientThread(res).s.getOutputStream());
         message.setGetter(res);
         oos.writeObject(message);
         serverThreadManage.getclientThread(res).s.close();
-        System.out.println("send server shut down to:"+message.getContent());
+        System.out.println("send server shut down to:" + message.getContent());
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
@@ -85,21 +90,21 @@ public class serverconnectThread extends Thread {
           message1.setGetter(message.getSender());
           ObjectOutputStream objectOutputStream = new ObjectOutputStream(s.getOutputStream());
           objectOutputStream.writeObject(message1);
-          System.out.println("return online clientlist:" + res+" to "+message1.getGetter());
-        }else if (message.getMesType().equals(MessageType.message_deleteThreadandnotifyother)){
+          System.out.println("return online clientlist:" + res + " to " + message1.getGetter());
+        } else if (message.getMesType().equals(MessageType.message_deleteThreadandnotifyother)) {
           serverThreadManage.deleteclientThread(message.getSender());
           String res = serverThreadManage.getOnlineUserid();
           Message message1 = new Message();
           message1.setMesType(MessageType.message_deleteThreadandnotifyother);
           message1.setContent(res);
           message1.setGetter(res);
-          System.out.println("return online clientlist:" + res+",MessageType:"+MessageType.message_deleteThreadandnotifyother+",to:"+message1.getGetter());
+          System.out.println("return online clientlist:" + res + ",MessageType:"
+              + MessageType.message_deleteThreadandnotifyother + ",to:" + message1.getGetter());
           ObjectOutputStream objectOutputStream = new ObjectOutputStream(s.getOutputStream());
           objectOutputStream.writeObject(message1);
           serverconnectThread.notifyother();
-        }
-        else if (message.getMesType().equals(MessageType.message_file)) {
-          System.out.println("server receive message_file from: "+message.getSender());
+        } else if (message.getMesType().equals(MessageType.message_file)) {
+          System.out.println("server receive message_file from: " + message.getSender());
           String receiverUsername = message.getGetter();
           String[] contentParts = message.getContent().split(":", 2);
           String fileName = contentParts[0];
@@ -114,14 +119,16 @@ public class serverconnectThread extends Thread {
               message.getGetter());
           ObjectOutputStream oos = new ObjectOutputStream(serverconnectThread.s.getOutputStream());
           oos.writeObject(forwardMessage);
-          System.out.println("server send message_file to: "+forwardMessage.getGetter());
-        }
-        else if (message.getMesType().equals(MessageType.message_createGroupChat)) {
+          System.out.println("server send message_file to: " + forwardMessage.getGetter());
+        } else if (message.getMesType().equals(MessageType.message_createGroupChat)) {
           HashMap hm = serverThreadManage.hm;
-          String[] joinedFriendNames = message.getGroupMembers().toArray(new String[message.getGroupMembers().size()]);
+          String[] joinedFriendNames = message.getGroupMembers()
+              .toArray(new String[message.getGroupMembers().size()]);
           String content = Arrays.toString(joinedFriendNames)
               .replaceAll("\\[|\\]|\\s", "");
-          System.out.println("server get creategroup request from:"+message.getSender()+",the group contains:"+ content);
+          System.out.println(
+              "server get creategroup request from:" + message.getSender() + ",the group contains:"
+                  + content);
           for (String friendName : joinedFriendNames) {
             if (hm.containsKey(friendName)) {
               try {
@@ -139,8 +146,10 @@ public class serverconnectThread extends Thread {
               }
             }
           }
-        }else if (message.getMesType().equals(MessageType.message_groupChat)){
-          System.out.println("server recieve group chat meaasge: "+message.getContent()+" from: "+message.getSender()+" to: "+message.getGetter());
+        } else if (message.getMesType().equals(MessageType.message_groupChat)) {
+          System.out.println(
+              "server recieve group chat meaasge: " + message.getContent() + " from: "
+                  + message.getSender() + " to: " + message.getGetter());
           HashMap hm = serverThreadManage.hm;
           String[] joinedFriendNames = message.getGetter().split(",");
           for (String friendName : joinedFriendNames) {
@@ -155,14 +164,15 @@ public class serverconnectThread extends Thread {
                 groupChatNotification.setContent(message.getContent());
                 oos.writeObject(groupChatNotification);
                 oos.flush();
-                System.out.println("successfully send group chat meaasge to: "+message.getGetter());
+                System.out.println(
+                    "successfully send group chat meaasge to: " + message.getGetter());
               } catch (IOException e) {
                 e.printStackTrace();
               }
             }
           }
-      }
-      }catch (IOException e) {
+        }
+      } catch (IOException e) {
         throw new RuntimeException(e);
       } catch (ClassNotFoundException e) {
         throw new RuntimeException(e);
