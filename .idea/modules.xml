@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/chatting-main-main/chatting.iml" filepath="$PROJECT_DIR$/chatting-main-main/chatting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chatting-main-main/chatting-client/chatting-client.iml" filepath="$PROJECT_DIR$/chatting-main-main/chatting-client/chatting-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chatting-main-main/chatting-common/chatting-common.iml" filepath="$PROJECT_DIR$/chatting-main-main/chatting-common/chatting-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/chatting-main-main.iml" filepath="$PROJECT_DIR$/.idea/chatting-main-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chatting-main-main/chatting-server/chatting-server.iml" filepath="$PROJECT_DIR$/chatting-main-main/chatting-server/chatting-server.iml" />
+    </modules>
+  </component>
+</project>
